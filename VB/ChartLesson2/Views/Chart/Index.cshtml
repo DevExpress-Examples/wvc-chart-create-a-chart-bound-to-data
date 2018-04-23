@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "MVC Chart Getting Started Lesson 2";
+}
+
+@Html.DevExpress().Chart(settings => {
+    // Specifying obligatory properties of the Chart.
+    settings.Name = "chart";
+
+    // Customize the chart appearance.
+    settings.PaletteName = "Office 2013";
+    settings.Width = 640;
+    settings.Height = 360;
+
+    //Create a new series bound to data model.
+    Series series = new Series();
+    series.ArgumentDataMember = "ProductName";
+    series.ValueDataMembers.AddRange("UnitPrice");
+    SideBySideBarSeriesView view = series.View as SideBySideBarSeriesView;
+    if (view != null) {
+        view.ColorEach = true;
+        view.FillStyle.FillMode = FillMode.Solid;
+    }
+    series.LegendTextPattern = "{A}";
+    settings.Series.Add(series);
+
+    // Add a chart title.
+    settings.Titles.Add(new ChartTitle() { Text = "Beverage product prices comparison" });
+
+    // Configure the crosshair cursor options.
+    settings.CrosshairOptions.ShowArgumentLabels = true;
+    settings.CrosshairOptions.ShowValueLabels = true;
+    settings.CrosshairOptions.ShowValueLine = true;
+}).Bind(Model).GetHtml()
