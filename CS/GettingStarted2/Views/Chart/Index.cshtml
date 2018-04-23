@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Getting Started Lesson 2";
+}
+
+@Html.DevExpress().Chart(settings => {
+    // Specify the obligatory Name property of the chart.
+    settings.Name = "chart";
+
+    // Configure the chart appearance.
+    settings.PaletteName = "Office 2013";
+    settings.Width = 640;
+    settings.Height = 360;
+
+    // Add a new series bound to data.
+    settings.Series.Add(s => {
+        // Set argument and value data members.
+        s.SetDataMembers("ProductName", "UnitPrice");
+        // Configure the series appearance.
+        s.Views().SideBySideBarSeriesView(v => {
+            v.FillStyle.FillMode = FillMode.Solid;
+            v.ColorEach = true;
+        });
+        // Change a pattern used to form text in legend items.
+        s.LegendTextPattern = "{A}";
+    });
+
+    // Add a chart title.
+    settings.Titles.Add(t => {
+        t.Text = "Beverage product prices comparison";
+    });
+
+    //Configure the crosshair cursor options. 
+    settings.CrosshairOptions.ShowArgumentLabels = true;
+    settings.CrosshairOptions.ShowValueLabels = true;
+    settings.CrosshairOptions.ShowValueLine = true;
+}).Bind(Model).GetHtml();
