@@ -1,8 +1,9 @@
-﻿Imports System.Web
 Imports System.Web.Mvc
 
 Namespace ChartLesson2
+
     Public Class FilterConfig
+
         Public Shared Sub RegisterGlobalFilters(ByVal filters As GlobalFilterCollection)
             filters.Add(New HandleErrorAttribute())
         End Sub
